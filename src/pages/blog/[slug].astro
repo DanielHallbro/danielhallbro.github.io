@@ -1,0 +1,188 @@
+---
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{post.data.title} — Daniel Hållbro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+  </head>
+  <body>
+    <nav id="nav">
+      <div class="nav-name"><a href="/">Daniel Hållbro</a></div>
+      <a href="/" class="back"><i class="ti ti-arrow-left"></i> Back</a>
+    </nav>
+
+    <main>
+      <div class="breadcrumb">
+        <a href="/">home</a>
+        <span>/</span>
+        <a href="/#blog">blog</a>
+        <span>/</span>
+        {post.id}
+      </div>
+
+      <div class="header">
+        <div class="tag">{post.data.tag}</div>
+        <h1>{post.data.title}</h1>
+        <div class="meta">
+          <span class="date">{post.data.date}</span>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <div class="content">
+        <Content />
+      </div>
+    </main>
+  </body>
+</html>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: #e2e8f0;
+    min-height: 100vh;
+    background: radial-gradient(ellipse at 25% 40%, #0d1f16 0%, #0d0f14 65%) fixed;
+  }
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2rem;
+    border-bottom: 0.5px solid transparent;
+    transition: background 0.25s ease, border-color 0.25s ease;
+  }
+
+  nav.scrolled {
+    background: rgba(13,15,20,0.95);
+    border-bottom-color: #252a35;
+  }
+
+  .nav-name a {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: #e2e8f0;
+    text-decoration: none;
+  }
+
+  .back {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #64748b;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .back:hover { color: #4ade80; }
+
+  main {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem;
+  }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #252a35;
+    margin-bottom: 2rem;
+  }
+
+  .breadcrumb a { color: #64748b; text-decoration: none; }
+  .breadcrumb a:hover { color: #4ade80; }
+
+  .header { margin-bottom: 2rem; }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #4ade80;
+    background: rgba(74,222,128,0.08);
+    padding: 3px 9px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: #e2e8f0;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+
+  .date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #64748b;
+  }
+
+  .divider {
+    border: none;
+    border-top: 0.5px solid #252a35;
+    margin: 2rem 0;
+  }
+
+  :global(.content h2) {
+    all: unset;
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #4ade80;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 2rem 0 0.875rem;
+  }
+
+  :global(.content p) {
+    font-size: 14px;
+    color: #94a3b8;
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+
+  :global(.content em) {
+    color: #e2e8f0;
+    font-style: italic;
+  }
+</style>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  });
+</script>
