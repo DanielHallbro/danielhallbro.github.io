@@ -38,7 +38,18 @@
         <p class="sub"><span>IT & Cybersecurity · Frans Schartaus  Handelsinstitut · Stockholm</span><br>Incoming intern at Detectify, Aug 2026.</p>
         <a href="#projects" class="cta">View projects <i class="ti ti-arrow-right"></i></a>
       </section>
-
+      <section class="section" id="whoami">
+  <div class="section-label">whoami</div>
+  <div class="about-short">
+    <p>Before pivoting to security, I spent 10+ years in land surveying and civil engineering — running my own consulting firm, leading fieldwork on large commercial projects, and taking on financial responsibility early in my career. The work demanded precision, clear documentation and independent judgment.</p>
+    <p>Starting August 2026, I'll be interning and working part time at Detectify as a security researcher.</p>
+    <div class="contact-links">
+      <a href="https://github.com/DanielHallbro" target="_blank" class="contact-link"><i class="ti ti-brand-github"></i> github.com/DanielHallbro</a>
+      <a href="https://linkedin.com/in/danielhallbro" target="_blank" class="contact-link"><i class="ti ti-brand-linkedin"></i> linkedin.com/in/danielhallbro</a>
+      <a href="mailto:daniel.hallbro@gmail.com" class="contact-link"><i class="ti ti-mail"></i> daniel.hallbro@gmail.com</a>
+    </div>
+  </div>
+</section>
       <section class="section" id="projects">
   <div class="section-label">Projects</div>
   <div class="grid">
@@ -157,29 +168,71 @@
 </div>
       </section>
 
-      <section class="section" id="about">
-        <div class="section-label">About</div>
-        <div class="about">
-          <p>IT and cybersecurity student at Frans Schartau in Stockholm, focused on offensive security. I enjoy CTFs, building recon tools, and understanding how things break — before someone else does.</p>
-          <div class="contact-links">
-            <a href="https://github.com/DanielHallbro" target="_blank" class="contact-link"><i class="ti ti-brand-github"></i> github.com/DanielHallbro</a>
-            <a href="https://linkedin.com/in/danielhallbro" target="_blank" class="contact-link"><i class="ti ti-brand-linkedin"></i> linkedin.com/in/danielhallbro</a>
-            <a href="mailto:daniel.hallbro@gmail.com" class="contact-link"><i class="ti ti-mail"></i> daniel.hallbro@gmail.com</a>
-          </div>
-        </div>
-      </section>
     </main>
+    <footer>
+  <span>Daniel Hållbro · 2026</span>
+  <div class="footer-links">
+    <a href="https://github.com/DanielHallbro" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/in/danielhallbro" target="_blank">LinkedIn</a>
+    <a href="mailto:daniel.hallbro@gmail.com">daniel.hallbro@gmail.com</a>
+  </div>
+</footer>
   </body>
 </html>
 
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 2rem;
+  border-top: 0.5px solid #252a35;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #252a35;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-links a {
+  color: #64748b;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.footer-links a:hover { color: #4ade80; }
+
+@media (max-width: 640px) {
+  footer { display: none; }
+}
+
   body {
   font-family: 'Inter', sans-serif;
   color: #e2e8f0;
   min-height: 100vh;
   background: radial-gradient(ellipse at 25% 40%, #0d1f16 0%, #0d0f14 65%) fixed;
+}
+
+  .about-short {
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.about-short p {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.75;
+}
+
+.about-short p:last-child {
+  color: #94a3b8;
 }
 
   main, nav {
@@ -523,7 +576,7 @@
     line-height: 1.7;
   }
 
-  .contact-links { display: flex; flex-direction: column; gap: 0.75rem; }
+  .contact-links { display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; }
 
   .contact-link {
     display: flex;

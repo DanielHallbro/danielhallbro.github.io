@@ -72,18 +72,56 @@ const otherPosts = allPosts.filter(p => p.id !== post.id);
         </div>
       </aside>
     </div>
+    <footer>
+  <span>Daniel Hållbro · 2026</span>
+  <div class="footer-links">
+    <a href="https://github.com/DanielHallbro" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/in/danielhallbro" target="_blank">LinkedIn</a>
+    <a href="mailto:daniel.hallbro@gmail.com">daniel.hallbro@gmail.com</a>
+  </div>
+</footer>
   </body>
 </html>
 
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  body {
-    font-family: 'Inter', sans-serif;
-    color: #e2e8f0;
-    min-height: 100vh;
-    background: radial-gradient(ellipse at 25% 40%, #0d1f16 0%, #0d0f14 65%) fixed;
-  }
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 2rem;
+  border-top: 0.5px solid #252a35;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #252a35;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-links a {
+  color: #64748b;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.footer-links a:hover { color: #4ade80; }
+
+@media (max-width: 640px) {
+  footer { display: none; }
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: #e2e8f0;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at 25% 40%, #0d1f16 0%, #0d0f14 65%) fixed;
+  display: flex;
+  flex-direction: column;
+}
 
   nav {
     position: sticky;
@@ -122,19 +160,23 @@ const otherPosts = allPosts.filter(p => p.id !== post.id);
 
   .back:hover { color: #4ade80; }
 
-  .page-layout {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 3rem 2rem 5rem;
-    display: grid;
-    grid-template-columns: 1fr 220px;
-    gap: 3rem;
-    align-items: start;
-  }
+.page-layout {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem;
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 3rem;
+  align-items: start;
+  flex: 1;
+}
 
-  main {
-    min-width: 0;
-  }
+main {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem;
+  flex: 1;
+}
 
   .breadcrumb {
     display: flex;
