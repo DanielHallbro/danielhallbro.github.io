@@ -5,12 +5,14 @@ export async function getStaticPaths() {
   const posts = await getCollection('blog');
   return posts.map(post => ({
     params: { slug: post.id },
-    props: { post },
+    props: { post, allPosts: posts },
   }));
 }
 
-const { post } = Astro.props;
+const { post, allPosts } = Astro.props;
 const { Content } = await render(post);
+
+const otherPosts = allPosts.filter(p => p.id !== post.id);
 ---
 
 <html lang="en">
@@ -29,29 +31,47 @@ const { Content } = await render(post);
       <a href="/" class="back"><i class="ti ti-arrow-left"></i> Back</a>
     </nav>
 
-    <main>
-      <div class="breadcrumb">
-        <a href="/">home</a>
-        <span>/</span>
-        <a href="/#blog">blog</a>
-        <span>/</span>
-        {post.id}
-      </div>
-
-      <div class="header">
-        <div class="tag">{post.data.tag}</div>
-        <h1>{post.data.title}</h1>
-        <div class="meta">
-          <span class="date">{post.data.date}</span>
+    <div class="page-layout">
+      <main>
+        <div class="breadcrumb">
+          <a href="/">home</a>
+          <span>/</span>
+          <a href="/blog">blog</a>
+          <span>/</span>
+          {post.id}
         </div>
-      </div>
 
-      <hr class="divider" />
+        <div class="header">
+          <div class="tag">{post.data.tag}</div>
+          <h1>{post.data.title}</h1>
+          <div class="meta">
+            <span class="date">{post.data.date}</span>
+          </div>
+        </div>
 
-      <div class="content">
-        <Content />
-      </div>
-    </main>
+        <hr class="divider" />
+
+        <div class="content">
+          <Content />
+        </div>
+      </main>
+
+      <aside>
+        <div class="sidebar-inner">
+          <div class="sidebar-label">Other posts</div>
+          <ul class="sidebar-list">
+            {otherPosts.map(p => (
+              <li>
+                <a href={`/blog/${p.id}`} class={`sidebar-link ${p.id === post.id ? 'active' : ''}`}>
+                  <span class={`sidebar-tag tag-${p.data.tag.toLowerCase()}`}>{p.data.tag}</span>
+                  <span class="sidebar-title">{p.data.title}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </aside>
+    </div>
   </body>
 </html>
 
@@ -102,10 +122,18 @@ const { Content } = await render(post);
 
   .back:hover { color: #4ade80; }
 
-  main {
-    max-width: 680px;
+  .page-layout {
+    max-width: 1100px;
     margin: 0 auto;
     padding: 3rem 2rem 5rem;
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  main {
+    min-width: 0;
   }
 
   .breadcrumb {
@@ -177,6 +205,101 @@ const { Content } = await render(post);
   :global(.content em) {
     color: #e2e8f0;
     font-style: italic;
+  }
+
+  /* Sidebar */
+  aside {
+    position: sticky;
+    top: 6rem;
+  }
+
+  .sidebar-inner {
+    background: #161921;
+    border: 0.5px solid #252a35;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+
+  .sidebar-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: #4ade80;
+    text-transform: uppercase;
+    margin-bottom: 0.875rem;
+  }
+
+  .sidebar-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .sidebar-link {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0.625rem 0.75rem;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.15s;
+    border: 0.5px solid transparent;
+  }
+
+  .sidebar-link:hover {
+    background: #1e2330;
+    border-color: #252a35;
+  }
+
+  .sidebar-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    display: inline-block;
+    width: fit-content;
+  }
+
+  .tag-htb, .tag-ctf { color: #4ade80; background: rgba(74,222,128,0.08); }
+  .tag-event { color: #fb923c; background: rgba(251,146,60,0.08); }
+  .tag-meetup { color: #38bdf8; background: rgba(56,189,248,0.08); }
+
+  .sidebar-title {
+    font-size: 12px;
+    color: #64748b;
+    line-height: 1.4;
+    transition: color 0.15s;
+  }
+
+  .sidebar-link:hover .sidebar-title { color: #e2e8f0; }
+
+  @media (max-width: 768px) {
+    .page-layout {
+      grid-template-columns: 1fr;
+    }
+
+    aside {
+      position: static;
+      order: -1;
+    }
+
+    .sidebar-list {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .sidebar-link {
+      flex-direction: row;
+      align-items: center;
+      gap: 6px;
+      padding: 0.4rem 0.625rem;
+    }
+
+    .sidebar-title {
+      font-size: 11px;
+    }
   }
 </style>
 

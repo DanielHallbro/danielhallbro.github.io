@@ -1,8 +1,8 @@
 ---
-title: HackTheBox Stockholm Meetups
-tag: Meetup
-date: February — May 2026
-description: Monthly HTB meetups hosted at Detectify's office in Stockholm — solving boxes in groups across difficulty tracks.
+title: "HackTheBox Stockholm Meetups"
+tag: "Meetup"
+date: "February — May 2026"
+description: "Monthly HTB meetups hosted at Detectify's office in Stockholm — solving boxes in groups across difficulty tracks."
 ---
 
 ## What it is

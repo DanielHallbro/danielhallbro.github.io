@@ -21,6 +21,11 @@ const projects = await getCollection('projects');
     </nav>
 
     <main>
+    <div class="breadcrumb">
+  <a href="/">home</a>
+  <span>/</span>
+  <span>projects</span>
+</div>
       <div class="header">
         <div class="eyebrow">All projects</div>
         <h1>Projects</h1>
@@ -100,6 +105,19 @@ const projects = await getCollection('projects');
     margin: 0 auto;
     padding: 3rem 2rem 5rem;
   }
+
+  .breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #252a35;
+  margin-bottom: 2rem;
+}
+
+.breadcrumb a { color: #64748b; text-decoration: none; }
+.breadcrumb a:hover { color: #4ade80; }
 
   .header {
     margin-bottom: 2.5rem;
