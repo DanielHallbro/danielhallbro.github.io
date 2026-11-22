@@ -51,6 +51,11 @@ const { Content } = await render(project);
           <a href={project.data.github} target="_blank" class="btn-primary">
             <i class="ti ti-brand-github"></i> View on GitHub
           </a>
+          {project.data.live && (
+            <a href={project.data.live} target="_blank" class="btn-secondary">
+              <i class="ti ti-external-link"></i> Open live site
+            </a>
+          )}
         </div>
       </div>
 
@@ -104,7 +109,7 @@ footer {
 
 :global(.content img) {
   width: 100%;
-  max-width: 500px;
+  height: auto;
   display: block;
   margin: 1.5rem auto;
   border-radius: 6px;
@@ -241,6 +246,23 @@ main {
   }
 
   .btn-primary:hover { opacity: 0.85; }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    padding: 0.45rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    border: 0.5px solid #4ade80;
+    color: #4ade80;
+    font-weight: 500;
+    margin-left: 0.5rem;
+    transition: background 0.15s;
+  }
+
+  .btn-secondary:hover { background: rgba(74,222,128,0.08); }
 
   .divider {
     border: none;

@@ -1,7 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
+import { sortPostsByDate } from '../../utils/sortPosts';
 
-const posts = await getCollection('blog');
+const posts = sortPostsByDate(await getCollection('blog'));
 ---
 
 <html lang="en">

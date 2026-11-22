@@ -1,7 +1,7 @@
 ---
 title: OWASP Stockholm - AI Agents and MCP Security
 tag: Meetup
-date: May 2025
+date: May 2026
 description: Notes from an OWASP Stockholm evening at Epicenter with two talks on deploying AI agents securely and MCP server attack patterns.
 ---
 
