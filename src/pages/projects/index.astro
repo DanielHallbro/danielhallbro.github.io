@@ -44,7 +44,11 @@ const projects = await getCollection('projects');
             </div>
             <div class="card-overlay">
               <a href={`/projects/${project.id}`} class="btn-overlay-primary">View project <i class="ti ti-arrow-right"></i></a>
-              <a href={project.data.github} target="_blank" class="btn-overlay-secondary"><i class="ti ti-brand-github"></i> GitHub</a>
+              {project.data.privateNote ? (
+                <span class="btn-overlay-secondary"><i class="ti ti-lock"></i> Private</span>
+              ) : project.data.github && (
+                <a href={project.data.github} target="_blank" class="btn-overlay-secondary"><i class="ti ti-brand-github"></i> GitHub</a>
+              )}
             </div>
           </div>
         ))}

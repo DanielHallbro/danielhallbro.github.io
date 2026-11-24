@@ -48,9 +48,13 @@ const { Content } = await render(project);
           <span class="date">{project.data.date}</span>
         </div>
         <div class="links">
-          <a href={project.data.github} target="_blank" class="btn-primary">
-            <i class="ti ti-brand-github"></i> View on GitHub
-          </a>
+          {project.data.privateNote ? (
+            <p class="private-note"><i class="ti ti-lock"></i> {project.data.privateNote}</p>
+          ) : project.data.github && (
+            <a href={project.data.github} target="_blank" class="btn-primary">
+              <i class="ti ti-brand-github"></i> View on GitHub
+            </a>
+          )}
           {project.data.live && (
             <a href={project.data.live} target="_blank" class="btn-secondary">
               <i class="ti ti-external-link"></i> Open live site
@@ -263,6 +267,15 @@ main {
   }
 
   .btn-secondary:hover { background: rgba(74,222,128,0.08); }
+
+  .private-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    font-size: 13px;
+    color: #64748b;
+  }
 
   .divider {
     border: none;
